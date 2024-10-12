@@ -1,0 +1,73 @@
+{
+  "name": "quark",
+  "version": "0.0.1",
+  "description": "React State Management Library",
+  "author": "Dok6n <ehrbs2018@gmail.com>",
+  "private": false,
+  "keywords": [
+    "react",
+    "hooks",
+    "lifecycle",
+    "custom-hooks",
+    "typescript",
+    "react-hooks",
+    "tsup"
+  ],
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "/dist"
+  ],
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "format": "prettier --write \"{./src/**/*.{ts,tsx}, ./tests/**/*.{ts,tsx}}\" --log-level warn",
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
+    "prebuild": "pnpm format && pnpm lint",
+    "build": "tsup",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "pnpm build"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "@testing-library/react": "^16.0.1",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^9.11.1",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "globals": "^15.9.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsup": "^8.3.0",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.7.0",
+    "vitest": "^2.1.2"
+  },
+  "sideEffects": false,
+  "devEngines": {
+    "node": ">=v18.18"
+  },
+  "engines": {
+    "node": ">=v18.18"
+  }
+}
