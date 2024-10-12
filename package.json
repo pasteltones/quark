@@ -1,19 +1,20 @@
 {
-  "name": "quark",
+  "name": "@pasteltones/quark",
   "version": "0.0.1",
   "description": "React State Management Library",
-  "author": "Dok6n <ehrbs2018@gmail.com>",
   "private": false,
+  "author": "Dok6n <ehrbs2018@gmail.com>",
   "keywords": [
     "react",
     "hooks",
-    "lifecycle",
-    "custom-hooks",
-    "typescript",
-    "react-hooks",
+    "library",
+    "zustand",
+    "jotai",
+    "sangte",
+    "recoil",
+    "state management",
     "tsup"
   ],
-  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -33,6 +34,7 @@
     },
     "./package.json": "./package.json"
   },
+  "type": "module",
   "scripts": {
     "format": "prettier --write \"{./src/**/*.{ts,tsx}, ./tests/**/*.{ts,tsx}}\" --log-level warn",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
@@ -47,21 +49,26 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.11.1",
-    "@testing-library/react": "^16.0.1",
-    "@types/react": "^18.3.10",
+    "@eslint/compat": "^1.1.0",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.5.0",
+    "@testing-library/react": "^16.0.0",
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "eslint": "^9.11.1",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.12",
-    "globals": "^15.9.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "eslint": "^9.5.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "globals": "^15.6.0",
+    "jsdom": "^24.1.0",
+    "prettier": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tsup": "^8.3.0",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^8.7.0",
-    "vitest": "^2.1.2"
+    "tsup": "^8.1.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
   },
   "sideEffects": false,
   "devEngines": {

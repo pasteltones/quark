@@ -1,8 +1,8 @@
-import { useDebugValue, useSyncExternalStore } from 'react'
+import { useSyncExternalStore, useDebugValue } from 'react'
 import { Quark } from './vanilla'
 import type { CreateState, UseQuark } from './types'
 
-export function useStore<T>(store: Quark<T>) {
+function useStore<T>(store: Quark<T>) {
   const state = useSyncExternalStore(store.subscribe, store.getState, store.getState)
 
   const result = { ...state, reset: store.reset }

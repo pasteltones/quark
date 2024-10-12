@@ -15,7 +15,6 @@ export default defineConfig({
     'examples',
     '*.test.*',
     '*.spec.*',
-    'tests',
     'test',
     '*.md',
   ],
