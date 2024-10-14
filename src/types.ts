@@ -2,15 +2,19 @@ export type Fn = () => void
 
 export type Listener<T> = (state: T, prevState: T) => void
 
+export type ExtractState<S> = S extends { getState: () => infer T } ? T : never
+
 export type UpdateState<T> = Partial<T>
 export type UpdateStateFn<T> = (state: T) => UpdateState<T>
 export type SetState<T> = (partial: UpdateState<T> | UpdateStateFn<T>) => void
+export type SetSingleState<T> = (partial: UpdateState<T>) => void
 
 export interface StoreApi<T> {
   setState: SetState<T>
   getState: () => T
   getInitialState: () => T
-  subscribe: (listener: Listener<T>) => () => void
+  subscribe: (listener: Listener<T>) => Fn
+  reset: () => void
 }
 
 export type CreateState<T> = (
@@ -19,5 +23,16 @@ export type CreateState<T> = (
   store: StoreApi<T>,
 ) => T
 
-export type UseStoreReturn<T> = T & { reset: () => void }
-export type UseQuark<T> = (() => UseStoreReturn<T>) & StoreApi<T>
+// export type ReturnUseQuark<T> = T & { reset: Fn }
+// export type QuarkStore<T> = (<U>(
+//   selector?: (state: ExtractState<T>) => U,
+// ) => ReturnUseQuark<ExtractState<T>>) &
+//   StoreApi<T>
+
+export type QuarkStore<S extends StoreApi<unknown>> = {
+  (): ExtractState<S>
+  <U>(selector: (state: ExtractState<S>) => U): U
+} & S
+
+export type ReturnUseSingleQuark<T> = [T, SetSingleState<T>]
+export type SingleQuarkStore<T> = (() => ReturnUseSingleQuark<T>) & StoreApi<T>

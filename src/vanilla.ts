@@ -1,4 +1,4 @@
-import type { CreateState, Listener, StoreApi, UpdateStateFn, SetState, Fn } from './types'
+import type { CreateState, Listener, StoreApi, UpdateStateFn, SetState } from './types'
 
 export class Quark<T> {
   private state: T
@@ -15,6 +15,10 @@ export class Quark<T> {
     return new Quark(createState)
   }
 
+  static createSingleQuark<T>(value: T) {
+    return new Quark(() => value)
+  }
+
   notify = (state: T, prevState: T) => {
     this.listeners.forEach(listener => listener(state, prevState))
   }
@@ -28,8 +32,11 @@ export class Quark<T> {
 
     if (!Object.is(nextState, this.state)) {
       const prevState = this.state
-      this.state = Object.assign({}, this.state, nextState)
-
+      // this.state = Object.assign({}, this.state, nextState)
+      this.state =
+        typeof nextState === 'object' && nextState !== null
+          ? Object.assign({}, this.state, nextState)
+          : (nextState as T)
       this.notify(this.state, prevState)
     }
   }
@@ -39,7 +46,7 @@ export class Quark<T> {
     return () => this.listeners.delete(listener)
   }
 
-  reset: Fn = () => {
+  reset = () => {
     this.setState(this.initialState)
   }
 
@@ -55,6 +62,7 @@ export class Quark<T> {
       getState: this.getState,
       getInitialState: this.getInitialState,
       subscribe: this.subscribe,
+      reset: this.reset,
     }
   }
 }
