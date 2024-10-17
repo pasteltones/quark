@@ -7,7 +7,6 @@ Quark는 React 애플리케이션에서 상태 관리를 간편하고 효율적�
 ## 특징
 
 - **간단한 API**: Quark는 상태 관리를 위한 간단하고 직관적인 API를 제공합니다.
-- **효율성**: Quark는 최소한의 오버헤드로 효율적이고 빠르게 설계되었습니다.
 - **Type Safety**: Quark는 상태에 대한 타입 안전성을 제공하여 상태가 항상 일관되도록 보장합니다.
 
 ## Installation
@@ -32,7 +31,7 @@ Quark는 두 가지 주요 사용 방식을 제공합니다: Single Quark와 Qua
 ## Single Quark
 
 Single Quark는 useState와 유사한 방식으로 단일 상태 값을 관리합니다. 이는 간단한 상태 관리에
-적합하며, jotai나 recoil과 유사한 방식으로 작동합니다.
+적합하며, jotai나 recoil, sangte와 유사한 방식으로 작동합니다.
 
 ```tsx
 import { quark } from '@pasteltones/quark'

@@ -5,7 +5,6 @@ Quark is a state management library that helps manage state in React application
 ## Features
 
 - **Simple API**: Quark offers a simple and intuitive API for state management.
-- **Efficiency**: Quark is designed to be efficient and fast with minimal overhead.
 - **Type Safety**: Quark provides type safety for state, ensuring consistency at all times.
 
 ## Installation
@@ -27,7 +26,7 @@ Quark is a library that helps manage state easily and efficiently in React appli
 
 ## Single Quark
 
-Single Quark manages a single state value in a manner similar to useState. It is suitable for simple state management and works similarly to jotai or recoil.
+Single Quark manages a single state value in a manner similar to useState. It is suitable for simple state management and works similarly to jotai, recoil, or sangte.
 
 ```tsx
 import { quark } from '@pasteltones/quark'
