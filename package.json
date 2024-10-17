@@ -7,6 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/pasteltones/quark.git"
   },
+  "homepage": "https://www.npmjs.com/package/@pasteltones/quark",
   "author": "Dok6n <ehrbs2018@gmail.com>",
   "keywords": [
     "quark",

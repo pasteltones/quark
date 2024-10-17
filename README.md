@@ -2,6 +2,8 @@
 
 Quark is a state management library that helps manage state in React applications easily and efficiently. Quark is lightweight, easy to use, and provides powerful features for complex state management requirements.
 
+> ⚠️ This library is currently under development and does not include test code. It is important to perform additional testing before using it in a production environment. We recommend setting up your own tests or using it on a limited basis in the early stages to ensure stability.
+
 ## Features
 
 - **Simple API**: Quark offers a simple and intuitive API for state management.
