@@ -15,7 +15,7 @@ export class Quark<T> {
     return new Quark(createState)
   }
 
-  static createSingleQuark<T>(value: T) {
+  static createSingle<T>(value: T) {
     return new Quark(() => value)
   }
 
@@ -32,11 +32,11 @@ export class Quark<T> {
 
     if (!Object.is(nextState, this.state)) {
       const prevState = this.state
-      // this.state = Object.assign({}, this.state, nextState)
       this.state =
         typeof nextState === 'object' && nextState !== null
           ? Object.assign({}, this.state, nextState)
           : (nextState as T)
+
       this.notify(this.state, prevState)
     }
   }

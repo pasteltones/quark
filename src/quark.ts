@@ -61,7 +61,7 @@ export function quark<T>(store: CreateState<T> | T) {
     return useStore as QuarkStore<typeof quark>
   }
 
-  const quark = Quark.createSingleQuark(store)
+  const quark = Quark.createSingle(store)
   const useStore = () => useSingleQuark(quark)
   Object.assign(useStore, quark.api)
   return useStore as SingleQuarkStore<T>
