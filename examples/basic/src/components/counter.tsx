@@ -6,8 +6,10 @@ interface CountStore {
   increment: () => void
   decrement: () => void
 }
+
 const useCount = quark<CountStore>(set => ({
   count: 0,
+
   increment: () => {
     set(prev => ({ count: prev.count + 1 }))
   },
@@ -18,6 +20,7 @@ const useCount = quark<CountStore>(set => ({
 
 export function Counter() {
   const { count, increment, decrement } = useCount()
+
   return (
     <div>
       <p>Count: {count}</p>
