@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@pasteltones/quark':
-        specifier: ^0.0.2
-        version: 0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.0.5
+        version: 0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -363,8 +363,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@pasteltones/quark@0.0.2':
-    resolution: {integrity: sha512-/AM0HgqWhJPsHNoXpeysg44MBFno+P1lRAawG4EgBt5I8/koRQhQxPQdUDDNjxsrp/+4GRhs4qHZWCAnt1IOSw==}
+  '@pasteltones/quark@0.0.5':
+    resolution: {integrity: sha512-lCGYwN36/oQPZCEduPH+hemyPn6gga0RAVRmCYAdU9o3J5F+HsLkcrSrOG6vT2jmZ9w1vPh1KvidRNkRQRqVvA==}
     engines: {node: '>=v18.18'}
     peerDependencies:
       react: ^18.0.0
@@ -1372,7 +1372,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@pasteltones/quark@0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@pasteltones/quark@0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
