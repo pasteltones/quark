@@ -1,22 +1,31 @@
-import type { CreateState, Listener, StoreApi, UpdateStateFn, SetState } from './types'
+import type {
+  QuarkOptions,
+  CreateState,
+  Listener,
+  StoreApi,
+  UpdateStateFn,
+  SetState,
+} from './types'
 
 export class Quark<T> {
   private state: T
   private initialState: T
   private listeners: Set<Listener<T>>
+  private options: QuarkOptions = { as: 'global' }
 
-  constructor(createState: CreateState<T>) {
+  constructor(createState: CreateState<T>, options?: Partial<QuarkOptions>) {
     this.state = createState(this.setState, this.getState, this.api)
     this.initialState = this.state
     this.listeners = new Set()
+    this.options = { ...this.options, ...options }
   }
 
-  static create<T>(createState: CreateState<T>) {
-    return new Quark(createState)
+  static create<T>(createState: CreateState<T>, options?: Partial<QuarkOptions>) {
+    return new Quark(createState, options)
   }
 
-  static createSingle<T>(value: T) {
-    return new Quark(() => value)
+  static createSingle<T>(value: T, options?: Partial<QuarkOptions>) {
+    return new Quark(() => value, options)
   }
 
   notify = (state: T, prevState: T) => {
@@ -63,6 +72,7 @@ export class Quark<T> {
       getInitialState: this.getInitialState,
       subscribe: this.subscribe,
       reset: this.reset,
+      scope: this.options.as,
     }
   }
 }
