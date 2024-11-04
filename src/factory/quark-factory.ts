@@ -1,13 +1,11 @@
 import { useQuark } from '../react'
 import { Quark } from '../vanilla'
 import type { CreateState, QuarkOptions, QuarkStore, StoreApi } from '../types'
-import type { IQuarkFactory } from './quark-factory.interface'
+import { QuarkStoreCreator } from './quark-store-creator.abstract'
 
-export class QuarkFactory<T> implements IQuarkFactory<StoreApi<T>> {
-  constructor(private store: CreateState<T>) {}
-
-  createGlobalStore(options?: Partial<QuarkOptions>) {
-    const quark = Quark.create(this.store, options)
+export class QuarkStoreFactory extends QuarkStoreCreator {
+  static override createGlobalStore<T>(store: CreateState<T>, options?: Partial<QuarkOptions>) {
+    const quark = Quark.create(store, options)
     const useStore = <U>(selector: (state: T) => U = state => state as unknown as U) =>
       useQuark(quark.api, selector)
 
