@@ -1,9 +1,9 @@
 import React from 'react'
 import { describe, it, expect } from 'vitest'
 import { renderHook, act, render, fireEvent, cleanup, getByTestId } from '@testing-library/react'
-import { quark, useQuark } from '../quark'
-import { QuarkStore } from 'src/types'
-import { Quark } from 'src/vanilla'
+import { quark } from '../quark'
+import { useQuark } from '../react'
+import { QuarkStore, StoreApi } from 'src/types'
 
 describe('quark', () => {
   it('creates a single value Quark and checks initial state | 단일 값 쿼크를 생성하고 초기 상태를 확인해야 한다', () => {
@@ -40,6 +40,12 @@ describe('useQuark', () => {
 
     expect(result.current.count).toBe(0)
   })
+
+  it('The default value of scope is "global" | scope의 기본값은 "global"이다', () => {
+    const useStore = quark({ count: 0 })
+
+    expect(useStore.scope).toBe('global')
+  })
 })
 
 describe('useSingleQuark', () => {
@@ -66,7 +72,7 @@ describe('useSingleQuark', () => {
       incrementCount: () => void
       setText: (text: string) => void
     }
-    let useStore: QuarkStore<Quark<Store>>
+    let useStore: QuarkStore<StoreApi<Store>>
     let parentRenderCount = 0
     let childRenderCount = 0
 

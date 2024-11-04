@@ -1,68 +1,20 @@
-import { Quark } from './vanilla'
-import type {
-  CreateState,
-  ExtractState,
-  QuarkStore,
-  ReturnUseSingleQuark,
-  SingleQuarkStore,
-  StoreApi,
-} from './types'
-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector'
-import { IsEqual, shallow } from './util'
+import type { CreateState, QuarkOptions, QuarkStore, SingleQuarkStore, StoreApi } from './types'
+import { SingleQuarkFactory } from './factory/single-quark-factory'
+import { QuarkFactory } from './factory/quark-factory'
 
-export function useQuark<S extends StoreApi<unknown>>(store: S): ExtractState<S>
-export function useQuark<S extends StoreApi<unknown>, U>(
-  store: S,
-  selector: (state: ExtractState<S>) => U,
-  isEqual?: IsEqual<S>,
-): U
-export function useQuark<TState, U>(
-  store: StoreApi<TState>,
-  selector?: (state: TState) => U,
-  isEqual?: IsEqual<U>,
-) {
-  const slice = useSyncExternalStoreWithSelector(
-    store.subscribe,
-    store.getState,
-    store.getState,
-    selector ?? (state => state as any),
-    isEqual ?? shallow,
-  )
+const isCreateState = <T>(store: CreateState<T> | T): store is CreateState<T> =>
+  typeof store === 'function'
 
-  return slice
-}
+export function quark<T>(store: CreateState<T>): QuarkStore<StoreApi<T>>
+export function quark<T>(
+  store: CreateState<T>,
+  options?: Partial<QuarkOptions>,
+): QuarkStore<StoreApi<T>>
+export function quark<T>(store: T, options?: Partial<QuarkOptions>): SingleQuarkStore<T>
+export function quark<T>(store: CreateState<T> | T, options?: Partial<QuarkOptions>) {
+  const factory = isCreateState(store) ? new QuarkFactory(store) : new SingleQuarkFactory(store)
 
-export function useSingleQuark<T>(
-  store: Quark<T>,
-  selector?: (state: T) => T,
-  isEqual?: IsEqual<T>,
-): ReturnUseSingleQuark<T> {
-  const slice = useSyncExternalStoreWithSelector(
-    store.subscribe,
-    store.getState,
-    store.getState,
-    selector ?? (state => state),
-    isEqual ?? shallow<T>,
-  )
+  const quarkStore = factory.createGlobalStore(options)
 
-  const result: ReturnUseSingleQuark<T> = [slice, store.setState]
-  return result
-}
-
-export function quark<T>(store: T): SingleQuarkStore<T>
-export function quark<T>(store: CreateState<T>): QuarkStore<Quark<T>>
-export function quark<T>(store: CreateState<T> | T) {
-  const isProton = (store: unknown): store is CreateState<T> => typeof store === 'function'
-
-  if (isProton(store)) {
-    const quark = Quark.create(store)
-    const useStore: any = (selector?: any) => useQuark(quark.api, selector)
-    Object.assign(useStore, quark.api)
-    return useStore as QuarkStore<typeof quark>
-  }
-
-  const quark = Quark.createSingle(store)
-  const useStore = () => useSingleQuark(quark)
-  Object.assign(useStore, quark.api)
-  return useStore as SingleQuarkStore<T>
+  return quarkStore
 }

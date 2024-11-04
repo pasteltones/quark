@@ -1,5 +1,9 @@
 export type Fn = () => void
 
+export type QuarkOptions = {
+  as: 'global' | 'local'
+}
+
 export type Listener<T> = (state: T, prevState: T) => void
 
 export type ExtractState<S> = S extends { getState: () => infer T } ? T : never
@@ -15,6 +19,7 @@ export interface StoreApi<T> {
   getInitialState: () => T
   subscribe: (listener: Listener<T>) => Fn
   reset: () => void
+  scope: 'global' | 'local'
 }
 
 export type CreateState<T> = (
@@ -23,13 +28,7 @@ export type CreateState<T> = (
   store: StoreApi<T>,
 ) => T
 
-// export type ReturnUseQuark<T> = T & { reset: Fn }
-// export type QuarkStore<T> = (<U>(
-//   selector?: (state: ExtractState<T>) => U,
-// ) => ReturnUseQuark<ExtractState<T>>) &
-//   StoreApi<T>
-
-export type QuarkStore<S extends StoreApi<unknown>> = {
+export type QuarkStore<S> = {
   (): ExtractState<S>
   <U>(selector: (state: ExtractState<S>) => U): U
 } & S
