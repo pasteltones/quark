@@ -1,6 +1,6 @@
 {
   "name": "@pasteltones/quark",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React State Management Library",
   "private": false,
   "repository": {
