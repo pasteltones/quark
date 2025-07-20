@@ -113,4 +113,40 @@ export function ChildComponent() {
 }
 ```
 
-In the example above, ChildComponent subscribes only to the count state, preventing unnecessary rendering when the text state changes. In this way, Quark supports various methods of state management and can optimize the performance of React applications. Experience simple and efficient state management with Quark.
+In the example above, ChildComponent subscribes only to the count state, preventing unnecessary rendering when the text state changes. 
+
+<!--  -->
+
+## Complex Local State
+
+useQuarkLocal allows you to use Quark's API as is for complex structured local state instead of useState.
+Internally, it uses useState.
+
+```tsx
+import { useQuarkLocal } from '@pasteltones/quark'
+
+interface CountState {
+  count: number
+  setCount: (count: number) => void
+  increment: () => void
+}
+
+export function LocalQuark() {
+  const { count, setCount, increment } = useQuarkLocal<CountState>(set => ({
+    count: 0,
+    setCount: count => set({ count }),
+    increment: () => set(state => ({ count: state.count + 1 })),
+  }))
+
+  return (
+    <div>
+      <h2>LocalQuark</h2>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+      <button onClick={() => setCount(count + 1)}>Set Count</button>
+    </div>
+  )
+}
+```
+
+In this way, Quark supports various methods of state management and can optimize the performance of React applications. Experience simple and efficient state management with Quark.

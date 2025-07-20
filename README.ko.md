@@ -122,5 +122,41 @@ export function ChildComponent() {
 ```
 
 위 예제에서 ChildComponent는 count 상태만을 구독하여, text 상태가 변경될 때 불필요한 렌더링을
-방지합니다. 이와 같이 Quark는 다양한 방식으로 상태 관리를 지원하며, React 애플리케이션의 성능을
+방지합니다. 
+
+<!--  -->
+
+## 복잡한 지역상태
+
+복잡한 구조의 지역상태를 quark의 api를 그대로 활용하여 useState 대신 사용할 수 있는 useQuarkLocal입니다.
+내부에서는 useState를 사용합니다.
+
+```tsx
+import { useQuarkLocal } from '@pasteltones/quark'
+
+interface CountState {
+  count: number
+  setCount: (count: number) => void
+  increment: () => void
+}
+
+export function LocalQuark() {
+  const { count, setCount, increment } = useQuarkLocal<CountState>(set => ({
+    count: 0,
+    setCount: count => set({ count }),
+    increment: () => set(state => ({ count: state.count + 1 })),
+  }))
+
+  return (
+    <div>
+      <h2>LocalQuark</h2>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+      <button onClick={() => setCount(count + 1)}>Set Count</button>
+    </div>
+  )
+}
+```
+
+이와 같이 Quark는 다양한 방식으로 상태 관리를 지원하며, React 애플리케이션의 성능을
 최적화할 수 있습니다. Quark를 사용하여 간단하고 효율적인 상태 관리를 경험해 보세요.
